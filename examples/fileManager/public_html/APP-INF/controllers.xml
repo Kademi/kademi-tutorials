@@ -1,0 +1,5 @@
+<controllers>
+    <source>/APP-INF/app.js</source>
+    
+    <menu parentId="menuRoot" id="menuManageFiles" text="Files" css="fa fa-picture-o" path="/files/" ordering="80"/>
+</controllers>
