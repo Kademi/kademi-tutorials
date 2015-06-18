@@ -1,10 +1,120 @@
 <html>
     <head>
         <title>Files</title>
+        <link rel="stylesheet" href="/theme/assets/plugins/dropzone/downloads/css/dropzone.css"/>
+        <style>
+            .fileType{
+                color: #46B8DA;
+                font-size: 3em;
+            }
+        </style>
     </head>
     <body>
         <p>
-            <button class="btn btn-sm btn-success"><i class="fa fa-plus"></i> Add Files</button>
+            <a class="btn btn-sm btn-success" data-toggle="modal" data-target="#modal-upload"><i class="fa fa-upload"></i> Upload Files</a>
         </p>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="clip-data "></i>
+                Files
+            </div>
+            <table class="table">
+                <colgroup>
+                    <col width="50px"/>
+                    <col/>
+                    <col/>
+                    <col width="100px"/>
+                    <col width="190px"/>
+                </colgroup>
+                <thead>
+                    <tr>
+                        <th class="text-center">Type</th>
+                        <th>Name</th>
+                        <th>Date Uploaded</th>
+                        <th>Size</th>
+                        <th class="text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="filesBody">
+                    #set($db = $page.find("/jsondb/files"))
+                    #if(!$db || $db.numRecords < 1)
+                    <tr>
+                        <td colspan="5">Sorry, You have no files! Why not upload some?</td>
+                    </tr>
+                    #else
+                    #foreach($doc in $db.children)
+                    #set($json = $doc.jsonObject)
+                    <tr>
+                        <td class="text-center">
+                            #genFileType($json)
+                        </td>
+                        <td>$doc.name</td>
+                        <td>$formatter.formatDateTime($formatter.parseDate($json.uploaded_date))</td>
+                        <td>$formatter.formatBytes($json.size)</td>
+                        <td class="action">
+                            <div class="btn-group btn-group-sm">
+                                <a href="$doc.name" download="$doc.name" target="_blank" class="btn btn-sm btn-primary btn-sm"> <i class="fa fa-download"></i> Download
+                                </a>
+                                <button class="btn btn-sm btn-primary btn-sm dropdown-toggle" data-toggle="dropdown">
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu pull-right" role="menu">
+                                    <li>
+                                        <a class="btn-delete-file" href="$doc.name"><span class="fa fa-times"></span> Delete</a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </td>
+                    </tr>
+                    #end
+                    #end
+                </tbody>
+            </table>
+        </div>
+        <div id="modal-upload" class="modal modal-md fade" aria-hidden="true" tabindex="-1">
+            <div class="modal-header">
+                <button aria-hidden="true" data-dismiss="modal" class="close" type="button">&times;</button>
+                <h4 class="modal-title">Upload files</h4>
+            </div>
+            <div class="modal-body">
+                <form action="$page.href" class="dropzone dropzone-fullwidth" id="uploadFileDropzone">
+                    <input type="hidden" name="uploadFiles" value="true"/>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-sm btn-default" data-dismiss="modal" type="button">Close</button>
+            </div>
+        </div>
+
+        <script src="/theme/apps/files-app/manageFiles.js" type="text/javascript">//
+        </script>
+        <script src="/theme/assets/plugins/dropzone/downloads/dropzone.min.js">//
+        </script>
+        <script>
+            $(function () {
+                initManageFiles();
+            });
+        </script>
+        #macro(genFileType $json)
+            #set($fType = "fa-file-o")
+            #if($json.type.contains("image"))
+                #set($fType = "fa-file-image-o")
+            #elseif($json.type.contains("zip"))
+                #set($fType = "fa-file-archive-o")
+            #elseif($json.type.contains("pdf"))
+                #set($fType = "fa-file-pdf-o")
+            #elseif($json.type.contains("wordprocessing"))
+                #set($fType = "fa-file-word-o")
+            #elseif($json.type.contains("text/plain"))
+                #set($fType = "fa-file-text-o")
+            #elseif($json.type.contains("xml")
+                    || $json.type.contains("x-csrc")
+                    || $json.type.contains("javascript")
+                    || $json.type.contains("html")
+                    || $json.type.contains("css"))
+                #set($fType = "fa-file-code-o")
+            #end
+            <i title="$json.type" class="fa $fType fileType"></i>
+        #end
     </body>
 </html>

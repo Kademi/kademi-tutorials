@@ -1,14 +1,14 @@
 controllerMappings
         .adminController()
-        .path("/files/")
+        .path("/filesApp/")
         .enabled(true)
         .defaultView(views.templateView("files-app/manageFiles.html"))
-        .addMethod("POST", "handleFileUpload", "file")
+        .addMethod("POST", "handleFileUpload", "uploadFiles")
         .build();
 
 controllerMappings
         .adminController()
-        .path("/files/(?<fileName>.*)")
+        .path("/filesApp/(?<fileName>.*)")
         .enabled(true)
         .addMethod("GET", "serveAdminFile")
         .addMethod("DELETE", "deleteAdminFile")

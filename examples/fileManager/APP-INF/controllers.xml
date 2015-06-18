@@ -2,5 +2,5 @@
     <source>/APP-INF/app.js</source>
     <source>/APP-INF/adminFileManager.js</source>
     
-    <menu parentId="menuRoot" id="menuManageFiles" text="Files" css="fa fa-files-o" path="/files/" ordering="80"/>
+    <menu parentId="menuRoot" id="menuManageFiles" text="Files" css="fa fa-files-o" path="/filesApp/" ordering="80"/>
 </controllers>
