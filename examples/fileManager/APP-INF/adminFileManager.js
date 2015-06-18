@@ -26,7 +26,7 @@ function handleFileUpload(page, params, files) {
             var checkExisting = filesDB.child(file.name);
 
             if (checkExisting !== null) {
-                page.thowBadRequest("File already exists");
+                page.throwBadRequest("File already exists");
             }
 
             filesDB.createNew(file.name, JSON.stringify(fileJson), 'file');

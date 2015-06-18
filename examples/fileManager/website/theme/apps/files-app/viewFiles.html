@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <title>Files</title>
+    </head>
+    <body class='add-container'>
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <i class="fa fa-cog"></i> Files
+            </div>
+            <div class="panel-body">
+                <div class="table-responsive">
+                    <table id="files-table" class="table table-striped table-hover" style="width: 100%">
+                        <colgroup>
+                            <col/>
+                            <col/>
+                            <col width="100px"/>
+                            <col width="190px"/>
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Date Uploaded</th>
+                                <th>Size</th>
+                                <th class="text-center">Download</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            #set($db = $page.find("/jsondb/files"))
+                    #if(!$db || $db.numRecords < 1)
+                    <tr>
+                        <td colspan="4">Sorry, You have no files! Why not upload some?</td>
+                    </tr>
+                    #else
+                    #foreach($doc in $db.children)
+                    #set($json = $doc.jsonObject)
+                    <tr>
+                        <td>$doc.name</td>
+                        <td>$formatter.formatDateTime($formatter.parseDate($json.uploaded_date))</td>
+                        <td>$formatter.formatBytes($json.size)</td>
+                        <td class="action text-center">
+                                <a href="$doc.name" download="$doc.name" target="_blank" class="btn btn-sm btn-primary btn-sm"> <i class="fa fa-download"></i> Download
+                                </a>
+                        </td>
+                    </tr>
+                    #end
+                    #end
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

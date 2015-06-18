@@ -13,3 +13,17 @@ controllerMappings
         .addMethod("GET", "serveAdminFile")
         .addMethod("DELETE", "deleteAdminFile")
         .build();
+
+controllerMappings
+        .websiteController()
+        .path("/filesApp/")
+        .enabled(true)
+        .defaultView(views.templateView("files-app/viewFiles.html"))
+        .build();
+
+controllerMappings
+        .websiteController()
+        .path("/filesApp/(?<fileName>.*)")
+        .enabled(true)
+        .addMethod("GET", "serveWebsiteFile")
+        .build();
