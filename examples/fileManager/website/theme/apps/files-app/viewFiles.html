@@ -6,7 +6,7 @@
     <body class='add-container'>
         <div class="panel panel-default">
             <div class="panel-heading">
-                <i class="fa fa-cog"></i> Files
+                Files
             </div>
             <div class="panel-body">
                 <div class="table-responsive">
@@ -27,24 +27,23 @@
                         </thead>
                         <tbody>
                             #set($db = $page.find("/jsondb/files"))
-                    #if(!$db || $db.numRecords < 1)
-                    <tr>
-                        <td colspan="4">Sorry, You have no files! Why not upload some?</td>
-                    </tr>
-                    #else
-                    #foreach($doc in $db.children)
-                    #set($json = $doc.jsonObject)
-                    <tr>
-                        <td>$doc.name</td>
-                        <td>$formatter.formatDateTime($formatter.parseDate($json.uploaded_date))</td>
-                        <td>$formatter.formatBytes($json.size)</td>
-                        <td class="action text-center">
-                                <a href="$doc.name" download="$doc.name" target="_blank" class="btn btn-sm btn-primary btn-sm"> <i class="fa fa-download"></i> Download
-                                </a>
-                        </td>
-                    </tr>
-                    #end
-                    #end
+                            #if(!$db || $db.numRecords < 1)
+                            <tr>
+                                <td colspan="4">Sorry, You have no files!</td>
+                            </tr>
+                            #else
+                                #foreach($doc in $db.children)
+                                #set($json = $doc.jsonObject)
+                                <tr>
+                                    <td>$doc.name</td>
+                                    <td>$formatter.formatDateTime($formatter.parseDate($json.uploaded_date))</td>
+                                    <td>$formatter.formatBytes($json.size)</td>
+                                    <td class="action text-center">
+                                        <a href="$doc.name" download="$doc.name" target="_blank" class="btn btn-sm btn-primary btn-sm"> <i class="fa fa-download"></i> Download</a>
+                                    </td>
+                                </tr>
+                                #end
+                            #end
                         </tbody>
                     </table>
                 </div>

@@ -9,7 +9,7 @@ function initUpload() {
         paramName: "file", // The name that will be used to transfer the file
         maxFilesize: 500.0, // MB
         addRemoveLinks: true,
-        parallelUploads: 5,
+        parallelUploads: 1,
         uploadMultiple: true
     });
     var dz = Dropzone.forElement("#uploadFileDropzone");
