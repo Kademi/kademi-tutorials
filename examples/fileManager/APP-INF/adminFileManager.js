@@ -1,5 +1,5 @@
 function handleFileUpload(page, params, files) {
-    log.info("handleFileUpload > page {} params {} files {}", page, params, files.class);
+    log.info("handleFileUpload > page {} params {} files {}", page, params, files);
 
     var jsonDB = page.find('/jsondb');
     var filesDB = jsonDB.child('files');
@@ -68,11 +68,11 @@ function deleteAdminFile(page) {
         page.throwNotFound("File " + fileName + " not found");
     }
 
-    var imageRecord = filesDB.child(fileName);
+    var fileRecord = filesDB.child(fileName);
 
-    if (imageRecord === null) {
+    if (fileRecord === null) {
         page.throwNotFound("File " + fileName + " not found");
     }
     
-    imageRecord.delete();
+    fileRecord.delete();
 }
