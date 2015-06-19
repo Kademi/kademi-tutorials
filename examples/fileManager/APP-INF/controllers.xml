@@ -5,5 +5,5 @@
     
     <menu parentId="menuRoot" id="menuManageFiles" text="Files" css="fa fa-files-o" path="/filesApp/" ordering="80"/>
     
-    <menu type="website" parentId="menuRoot" id="menuFilesApp" text="Files"path="/filesApp/" ordering="80"/>
+    <menu type="website" parentId="menuRoot" id="menuFilesApp" text="Files" path="/filesApp/" ordering="80"/>
 </controllers>
