@@ -31,7 +31,6 @@ function handleFileUpload(page, params, files) {
 
             filesDB.createNew(file.name, JSON.stringify(fileJson), 'file');
         }
-        return page.jsonResult(true);
     }
 }
 
