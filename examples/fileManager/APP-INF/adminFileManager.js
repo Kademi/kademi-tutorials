@@ -45,13 +45,13 @@ function serveAdminFile(page, params) {
         page.throwNotFound("File " + fileName + " not found");
     }
 
-    var imageRecord = filesDB.child(fileName);
+    var fileRecord = filesDB.child(fileName);
 
-    if (imageRecord === null) {
+    if (fileRecord === null) {
         page.throwNotFound("File " + fileName + " not found");
     }
 
-    var json = imageRecord.jsonObject;
+    var json = fileRecord.jsonObject;
 
     return views.fileView(json.hash, json.type);
 }
